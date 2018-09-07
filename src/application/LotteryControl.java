@@ -13,11 +13,11 @@ public class LotteryControl {
 	private Label label;
 	//結果等の表示(当たりか外れか)
 	private List<Integer> list = new ArrayList<Integer>();
-
+	//くじ全体数リスト
 	private List<Integer> hit = new ArrayList<Integer>();
-
+	//当たり用リスト
 	private int count = 0;
-
+	//実行時ｎ番目の数値を取り出すのに使用
 	public LotteryControl(Label label) {
 		this.label = label;
 
@@ -42,14 +42,15 @@ public class LotteryControl {
 		//当たりの配列を作成、重複無し
 	}
 
-	public void event() {
-//		label.setText(String.valueOf(list.get(count)));
+	public void event() {//当たり、外れの判定メソッド
 		for(int BBB : hit) {
 			if(BBB == list.get(count)) {
 				label.setText("当たり～！！");
 				break;
+				//当たりリストの中にあったら当たりと表示し、処理終了
 			}else {
 				label.setText("外れ～！！");
+				//なかったら外れと表示
 			}
 		}
 		//当たり番号を格納してある配列と同じ数値があるかの判定、あった場合当たり
