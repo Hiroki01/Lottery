@@ -35,6 +35,7 @@ public class LotteryControl {
 			list.add(i);
 		}
 		Collections.shuffle(list);
+		//くじの配列作成およびシャッフル
 
 		for(int j = 1 ; j <= 50 ; j++) {
 			int dynabook = rand.nextInt(100);
@@ -45,6 +46,7 @@ public class LotteryControl {
 			}
 			hit.add(dynabook);
 		}
+		//当たりの配列を作成、重複無し
 	}
 
 	public void event() {
@@ -52,22 +54,18 @@ public class LotteryControl {
 		for(int BBB : hit) {
 			if(BBB == list.get(count)) {
 				label.setText("当たり～！！");
-				System.out.println(list.get(count));
-				System.out.println(BBB);
 				break;
 			}else {
 				label.setText("外れ～！！");
 			}
 		}
+		//当たり番号を格納してある配列と同じ数値があるかの判定、あった場合当たり
 		count++;
 		if(count >= 100) {
 			count = 0;
 		}
+		//100回実行したらリセット
 
 	}
-
-//	private void judgment() {
-//
-//	}
 
 }
