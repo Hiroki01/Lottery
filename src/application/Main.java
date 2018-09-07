@@ -1,15 +1,16 @@
 package application;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 
 public class Main extends Application {
 	Alert alert;
@@ -23,6 +24,7 @@ public class Main extends Application {
 	private Label Lscore;
 	//試案中（外れ数）
 	private LotteryControl lc;
+
 	//処理機構を記述するクラスの定義
 	@Override
 	public void start(Stage stage) {
@@ -38,17 +40,20 @@ public class Main extends Application {
 			stage.show();
 			//GUI起動
 
-			lc = new LotteryControl(label,Vscore,Lscore);
+			lc = new LotteryControl(label, Vscore, Lscore);
 			//処理中に変更が必要なものをコンストラクタで送る
-			button.setOnAction(event -> lc.Pressed(event));
+			lc.setArray();
+
+			button.setOnAction(event -> lc.event());
 			//ボタンが押された時用の処理
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 		}
 		//例外処理
 	}
+
 	private void myLayout(Stage stage) {
 		//レイアウト用メソッド
 		Font font = new Font("MS ゴシック", 20);
@@ -58,15 +63,25 @@ public class Main extends Application {
 		button.setFont(font);
 		//ボタン
 		label = new Label("ここに結果が出るよ♪");
-		label.setPrefSize(100, 100);
+		label.setPrefSize(200, 200);
 		label.setFont(font);
 		//結果表示用ラベル
 
-		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root);
+		HBox hbox = new HBox();
+		//hboxの配置位置
+		hbox.setAlignment(Pos.CENTER);
+
+		//HBOXと周囲のコントロールとの隙間
+		hbox.setPadding(new Insets(10, 10, 10, 10));
+		//hboxに配置するコントロールの隙間
+		hbox.setSpacing(10);
+		//hboxにコントロールを設置
+		hbox.getChildren().addAll(label);
+
+		Scene scene = new Scene(hbox);
 		//配置方法指定
 
-		scene.setOnKeyPressed(event -> lc.keyTyped(event));
+		scene.setOnKeyPressed(event -> lc.event());
 		//エンターキーが押されたときの処理
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		//cssで細かい表示形式設定
@@ -74,6 +89,7 @@ public class Main extends Application {
 		//ステージセット
 
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 		//起動
