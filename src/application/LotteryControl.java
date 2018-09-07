@@ -12,22 +12,15 @@ public class LotteryControl {
 
 	private Label label;
 	//結果等の表示(当たりか外れか)
-	private Label Vscore;
-	//試案中（当たり数）
-	private Label Lscore;
-	//試案中（外れ数）
-	private LotteryControl lc;
-	//処理機構を記述するクラスの定義
 	private List<Integer> list = new ArrayList<Integer>();
 
 	private List<Integer> hit = new ArrayList<Integer>();
 
 	private int count = 0;
 
-	public LotteryControl(Label label, Label vscore, Label lscore) {
+	public LotteryControl(Label label) {
 		this.label = label;
-		this.Vscore = vscore;
-		this.Lscore = lscore;
+
 	}
 
 	public void setArray() {

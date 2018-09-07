@@ -19,10 +19,6 @@ public class Main extends Application {
 	//ボタンで処理する用
 	private Label label;
 	//結果等の表示(当たりか外れか)
-	private Label Vscore;
-	//試案中（当たり数）
-	private Label Lscore;
-	//試案中（外れ数）
 	private LotteryControl lc;
 
 	//処理機構を記述するクラスの定義
@@ -40,7 +36,7 @@ public class Main extends Application {
 			stage.show();
 			//GUI起動
 
-			lc = new LotteryControl(label, Vscore, Lscore);
+			lc = new LotteryControl(label);
 			//処理中に変更が必要なものをコンストラクタで送る
 			lc.setArray();
 
