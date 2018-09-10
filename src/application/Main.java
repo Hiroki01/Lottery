@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -61,18 +62,33 @@ public class Main extends Application {
 		label = new Label("ここに結果が出るよ♪");
 		label.setPrefSize(200, 200);
 		label.setFont(font);
+		label.setAlignment(Pos.CENTER);
 		//結果表示用ラベル
 
-		VBox vbox = new VBox();
-		//hboxの配置位置
-		vbox.setAlignment(Pos.CENTER);
 
+		HBox hbox = new HBox();
+		//HBox:水平方向に配置レイアウト
+		hbox.setAlignment(Pos.CENTER);
+		//hboxの配置位置
+
+		hbox.setPadding(new Insets(10, 10, 10, 10));
 		//HBOXと周囲のコントロールとの隙間
-		vbox.setPadding(new Insets(10, 10, 10, 10));
+		hbox.setSpacing(10);
 		//hboxに配置するコントロールの隙間
-		vbox.setSpacing(10);
+		hbox.getChildren().addAll(label);
 		//hboxにコントロールを設置
-		vbox.getChildren().addAll(label);
+
+		VBox vbox = new VBox();
+		//VBox:垂直方向に配置レイアウト
+		vbox.setAlignment(Pos.CENTER);
+		//vboxの配置位置
+
+		vbox.setPadding(new Insets(10, 10, 10, 10));
+		//HBOXと周囲のコントロールとの隙間
+		vbox.setSpacing(10);
+		//hboxに配置するコントロールの隙間
+		vbox.getChildren().addAll(hbox,button);
+		//hboxにコントロールを設置
 
 		Scene scene = new Scene(vbox);
 		//配置方法指定

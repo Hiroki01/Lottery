@@ -49,17 +49,20 @@ public class LotteryControl {
 				label.setText("当たり～！！");
 				break;
 				//当たりリストの中にあったら当たりと表示し、処理終了
-			}else {
+			}else if(BBB != list.get(count)){
 				label.setText("外れ～！！");
 				//なかったら外れと表示
+			}else {
+				System.out.println("なかったね");
 			}
 		}
-		//当たり番号を格納してある配列と同じ数値があるかの判定、あった場合当たり
+		//当たり番号を格納してある配列と同じ数値があるかの判定
 		count++;
 		if(count >= 100) {
 			count = 0;
 		}
 		//100回実行したらリセット
+		//この場所の修正次第で最大くじ回数の指定可能
 
 	}
 
