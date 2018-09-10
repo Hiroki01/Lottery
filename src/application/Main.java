@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -63,18 +63,18 @@ public class Main extends Application {
 		label.setFont(font);
 		//結果表示用ラベル
 
-		HBox hbox = new HBox();
+		VBox vbox = new VBox();
 		//hboxの配置位置
-		hbox.setAlignment(Pos.CENTER);
+		vbox.setAlignment(Pos.CENTER);
 
 		//HBOXと周囲のコントロールとの隙間
-		hbox.setPadding(new Insets(10, 10, 10, 10));
+		vbox.setPadding(new Insets(10, 10, 10, 10));
 		//hboxに配置するコントロールの隙間
-		hbox.setSpacing(10);
+		vbox.setSpacing(10);
 		//hboxにコントロールを設置
-		hbox.getChildren().addAll(label);
+		vbox.getChildren().addAll(label);
 
-		Scene scene = new Scene(hbox);
+		Scene scene = new Scene(vbox);
 		//配置方法指定
 
 		scene.setOnKeyPressed(event -> lc.event());

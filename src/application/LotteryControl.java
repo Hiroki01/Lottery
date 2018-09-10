@@ -39,6 +39,7 @@ public class LotteryControl {
 			}
 			hit.add(dynabook);
 		}
+		Collections.shuffle(hit);
 		//当たりの配列を作成、重複無し
 	}
 
