@@ -28,7 +28,7 @@ public class Main extends Application {
 		stage.setTitle("クジ引き");
 		stage.setWidth(500);
 		stage.setHeight(400);
-		//タイトル、画面幅、高さ指定
+		//GUIタイトル、画面幅、高さ指定
 		alert = new Alert(AlertType.INFORMATION);
 		try {
 
