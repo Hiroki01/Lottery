@@ -21,6 +21,15 @@ public class Main extends Application {
 	private Label label;
 	//結果等の表示(当たりか外れか)
 	private LotteryControl lc;
+	//クラス呼びだし
+	private int countHit1 = 20;
+	//1等残数
+	private int countHit2 = 80;
+	//2等残数
+	private int countHit3 = 150;
+	//3等残数
+	private int Disengagement;
+	//外れ数
 
 	//処理機構を記述するクラスの定義
 	@Override
@@ -41,7 +50,7 @@ public class Main extends Application {
 			//処理中に変更が必要なものをコンストラクタで送る
 			lc.setArray();
 
-			button.setOnAction(event -> lc.event());
+			button.setOnAction(event -> lc.event(countHit1,countHit2,countHit3,Disengagement));
 			//ボタンが押された時用の処理
 
 		} catch (Exception e) {
@@ -93,7 +102,7 @@ public class Main extends Application {
 		Scene scene = new Scene(vbox);
 		//配置方法指定
 
-		scene.setOnKeyPressed(event -> lc.event());
+		scene.setOnKeyPressed(event -> lc.event(countHit1,countHit2,countHit3,Disengagement));
 		//エンターキーが押されたときの処理
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		//cssで細かい表示形式設定
