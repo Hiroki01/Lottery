@@ -37,7 +37,7 @@ public class LotteryControl {
 
 	}
 
-	public void event(int countHit1, int countHit2, int countHit3, int disengagement) {//当たり、外れの判定メソッド
+	public void event() {//当たり、外れの判定メソッド
 		int place = 0;
 		A:for (int[] BBB : Hit) {
 			System.out.println(place);
@@ -45,8 +45,8 @@ public class LotteryControl {
 				if (CCC == list.get(count)) {
 					//引いた数字があったらtrue
 					if (place == 0) {
-						label.setText("1等");
-						System.out.println("1等発見");
+						label.setText("１等");
+						System.out.println("１等発見");
 						break A;
 					} else if (place == 1) {
 						label.setText("２等");
@@ -55,8 +55,8 @@ public class LotteryControl {
 						break A;
 						//当たりリストの中にあったら当たりと表示し、処理終了
 					} else if (place == 2) {
-						label.setText("3等");
-						System.out.println("3等発見");
+						label.setText("３等");
+						System.out.println("３等発見");
 						place = 0;
 						break A;
 					} else {

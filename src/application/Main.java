@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -22,14 +23,6 @@ public class Main extends Application {
 	//結果等の表示(当たりか外れか)
 	private LotteryControl lc;
 	//クラス呼びだし
-	private int countHit1 = 20;
-	//1等残数
-	private int countHit2 = 80;
-	//2等残数
-	private int countHit3 = 150;
-	//3等残数
-	private int Disengagement;
-	//外れ数
 
 	//処理機構を記述するクラスの定義
 	@Override
@@ -50,7 +43,7 @@ public class Main extends Application {
 			//処理中に変更が必要なものをコンストラクタで送る
 			lc.setArray();
 
-			button.setOnAction(event -> lc.event(countHit1,countHit2,countHit3,Disengagement));
+			button.setOnAction(event -> lc.event());
 			//ボタンが押された時用の処理
 
 		} catch (Exception e) {
@@ -102,7 +95,11 @@ public class Main extends Application {
 		Scene scene = new Scene(vbox);
 		//配置方法指定
 
-		scene.setOnKeyPressed(event -> lc.event(countHit1,countHit2,countHit3,Disengagement));
+		scene.setOnKeyPressed(event -> {
+			if(event.getCode().equals(KeyCode.ENTER)){
+				lc.event();
+			}
+		});
 		//エンターキーが押されたときの処理
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		//cssで細かい表示形式設定
