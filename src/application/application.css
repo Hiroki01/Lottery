@@ -4,3 +4,7 @@
     -fx-border-radius: 5;
     -fx-padding: 3 6 6 6;
 }
+
+.stage{
+	-fx-background-image: url(comment.jpg);
+}

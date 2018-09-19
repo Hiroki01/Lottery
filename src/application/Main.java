@@ -1,41 +1,32 @@
 package application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application{
 	Alert alert;
 	//アラート用
-	private Button button;
-	//ボタンで処理する用
 	private Label label;
 	//結果等の表示(当たりか外れか)
 	private LotteryControl lc;
 	//クラス呼びだし
-	private int countHit1 = 20;
-	//1等残数
-	private int countHit2 = 80;
-	//2等残数
-	private int countHit3 = 150;
-	//3等残数
-	private int Disengagement;
-	//外れ数
+	//結果表示待機画面
 
 	//処理機構を記述するクラスの定義
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("クジ引き");
-		stage.setWidth(500);
+		stage.setWidth(1000);
 		stage.setHeight(400);
 		//GUIタイトル、画面幅、高さ指定
 		alert = new Alert(AlertType.INFORMATION);
@@ -45,13 +36,9 @@ public class Main extends Application {
 			//各種配置等決定用
 			stage.show();
 			//GUI起動
-
-			lc = new LotteryControl(label);
+			lc = new LotteryControl();
 			//処理中に変更が必要なものをコンストラクタで送る
 			lc.setArray();
-
-			button.setOnAction(event -> lc.event(countHit1,countHit2,countHit3,Disengagement));
-			//ボタンが押された時用の処理
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,18 +49,13 @@ public class Main extends Application {
 
 	private void myLayout(Stage stage) {
 		//レイアウト用メソッド
-		Font font = new Font("MS ゴシック", 20);
-		//フォント指定
-		button = new Button("くじ");
-		button.setPrefSize(100, 20);
-		button.setFont(font);
+		Font font = new Font("東青梅ゴシック", 50);
 		//ボタン
 		label = new Label("ここに結果が出るよ♪");
-		label.setPrefSize(200, 200);
+		label.setPrefSize(500, 500);
 		label.setFont(font);
 		label.setAlignment(Pos.CENTER);
 		//結果表示用ラベル
-
 
 		HBox hbox = new HBox();
 		//HBox:水平方向に配置レイアウト
@@ -84,25 +66,47 @@ public class Main extends Application {
 		//HBOXと周囲のコントロールとの隙間
 		hbox.setSpacing(10);
 		//hboxに配置するコントロールの隙間
-		hbox.getChildren().addAll(label);
+		hbox.getChildren().add(label);
 		//hboxにコントロールを設置
-
-		VBox vbox = new VBox();
-		//VBox:垂直方向に配置レイアウト
-		vbox.setAlignment(Pos.CENTER);
-		//vboxの配置位置
-
-		vbox.setPadding(new Insets(10, 10, 10, 10));
-		//HBOXと周囲のコントロールとの隙間
-		vbox.setSpacing(10);
-		//hboxに配置するコントロールの隙間
-		vbox.getChildren().addAll(hbox,button);
-		//hboxにコントロールを設置
-
-		Scene scene = new Scene(vbox);
+		Scene scene = new Scene(hbox);
 		//配置方法指定
 
-		scene.setOnKeyPressed(event -> lc.event(countHit1,countHit2,countHit3,Disengagement));
+		scene.setOnKeyPressed(event -> {
+
+			if(event.getCode().equals(KeyCode.ENTER)){
+				Thread th = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						Platform.runLater(
+								() -> label.setText("結果は"));
+
+						int j =0;
+						while(j<4){
+							Platform.runLater(
+									() -> label.setText(label.getText()+"・"));
+							try {
+								if(j!=3){
+									Thread.sleep(1000);//1秒停止
+								}else{
+									Platform.runLater(
+											() -> label.setText(lc.event()));
+									Thread.sleep(2500);//2.5秒停止
+									Platform.runLater(
+											() -> label.setText("ここに結果が出るよ♪"));
+								}
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							j++;
+						}
+
+					}
+				});
+				th.start();
+			}
+		});
+
 		//エンターキーが押されたときの処理
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		//cssで細かい表示形式設定
