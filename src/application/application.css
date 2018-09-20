@@ -6,7 +6,7 @@
 }
 
 #anc{
-	-fx-background-image: url("comment.jpg");
+	-fx-background-image: url("comment.png");
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position:center;
