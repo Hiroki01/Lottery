@@ -2,14 +2,13 @@ package application;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -25,9 +24,7 @@ public class Main extends Application{
 	//処理機構を記述するクラスの定義
 	@Override
 	public void start(Stage stage) {
-		stage.setTitle("クジ引き");
-		stage.setWidth(1000);
-		stage.setHeight(400);
+		stage.setFullScreen(true);
 		//GUIタイトル、画面幅、高さ指定
 		alert = new Alert(AlertType.INFORMATION);
 		try {
@@ -49,27 +46,38 @@ public class Main extends Application{
 
 	private void myLayout(Stage stage) {
 		//レイアウト用メソッド
-		Font font = new Font("東青梅ゴシック", 50);
+		Font font = new Font("東青梅ゴシック", 40);
 		//ボタン
 		label = new Label("ここに結果が出るよ♪");
-		label.setPrefSize(500, 500);
+//		label.setPrefSize(509,400);
+		label.setPrefSize(509,400);
 		label.setFont(font);
 		label.setAlignment(Pos.CENTER);
 		//結果表示用ラベル
 
-		HBox hbox = new HBox();
-		//HBox:水平方向に配置レイアウト
-		hbox.setAlignment(Pos.CENTER);
-		//hboxの配置位置
 
-		hbox.setPadding(new Insets(10, 10, 10, 10));
-		//HBOXと周囲のコントロールとの隙間
-		hbox.setSpacing(10);
-		//hboxに配置するコントロールの隙間
-		hbox.getChildren().add(label);
-		//hboxにコントロールを設置
-		Scene scene = new Scene(hbox);
+		AnchorPane anc = new AnchorPane();
+		anc.setId("anc");
+		AnchorPane.setTopAnchor(label, 60.0);
+	     AnchorPane.setLeftAnchor(label, 450.0);
+	     anc.getChildren().addAll(label);
+//
+//		HBox hbox = new HBox();
+//		//HBox:水平方向に配置レイアウト
+//		hbox.setId("hbox");
+//
+//		hbox.setAlignment(Pos.CENTER);
+//		//hboxの配置位置
+//
+//		hbox.setPadding(new Insets(10, 10, 10, 10));
+//		//HBOXと周囲のコントロールとの隙間
+//		hbox.setSpacing(50);
+//		//hboxに配置するコントロールの隙間
+//		hbox.getChildren().add(label);
+//		//hboxにコントロールを設置
+		Scene scene = new Scene(anc);
 		//配置方法指定
+
 
 		scene.setOnKeyPressed(event -> {
 
@@ -91,7 +99,7 @@ public class Main extends Application{
 								}else{
 									Platform.runLater(
 											() -> label.setText(lc.event()));
-									Thread.sleep(2500);//2.5秒停止
+									Thread.sleep(2000);//2.5秒停止
 									Platform.runLater(
 											() -> label.setText("ここに結果が出るよ♪"));
 								}
