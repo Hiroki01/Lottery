@@ -89,8 +89,26 @@ public class Main extends Application {
 									if (j != 3) {
 										Thread.sleep(1000);// 1秒停止
 									} else {
-										Platform.runLater(() -> label.setText(lc.event()));
-										Thread.sleep(3000);// 2.5秒停止
+										String keyword = lc.event();
+										Platform.runLater(() -> label.setText(keyword));
+										if(keyword.equals("１等です！\nおめでとうございます！")){
+											dramRoll.stop();
+											AudioClip sound = new AudioClip(new File("sound1.mp3").toURI().toString());
+											sound.play();
+											Thread.sleep(6000);// 2.5秒停止
+										}else if(keyword.equals("２等です！\nおめでとうございます！")){
+											dramRoll.stop();
+											AudioClip sound = new AudioClip(new File("oruga.mp3").toURI().toString());
+											sound.play();
+											Thread.sleep(9000);// 2.5秒停止
+										}else if(keyword.equals("３等です！\nおめでとうございます！")){
+											dramRoll.stop();
+											AudioClip sound = new AudioClip(new File("dragon.mp3").toURI().toString());
+											sound.play();
+											Thread.sleep(3000);// 2.5秒停止
+										}else{
+										Thread.sleep(2000);// 2.5秒停止
+										}
 										Platform.runLater(() -> label.setText("ここに結果が出るよ♪"));
 										flg=false;
 									}
