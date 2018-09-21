@@ -19,9 +19,6 @@ public class Main extends Application {
 	// 結果等の表示(当たりか外れか)
 	private LotteryControl lc;
 	// クラス呼びだし
-	// 結果表示待機画面
-
-	// 処理機構を記述するクラスの定義
 	@Override
 	public void start(Stage stage) {
 		stage.setFullScreen(true);
@@ -38,7 +35,7 @@ public class Main extends Application {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e);
+			System.out.println("何かがおかしいよ");
 		}
 		// 例外処理
 	}
@@ -53,24 +50,21 @@ public class Main extends Application {
 		label.setAlignment(Pos.CENTER);
 		// 結果表示用ラベル
 
-		AnchorPane anc = new AnchorPane();
-		anc.setId("anc");
+		AnchorPane root = new AnchorPane();
+		root.setId("root");
 		AnchorPane.setTopAnchor(label, 60.0);
 		AnchorPane.setLeftAnchor(label, 450.0);
-		anc.getChildren().addAll(label);
-
-		Scene scene = new Scene(anc);
-		// 配置方法指定
+		root.getChildren().add(label);
+		Scene scene = new Scene(root);
 
 		scene.setOnKeyPressed(event -> {
-
-				// システムシャットダウン(Escキーで)
-				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					System.exit(0);
-				}
-
-				if (flg == false) {
-					flg = true;
+			// システムシャットダウン(Escキーで)
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				System.exit(0);
+			}
+			// エンターキーが押されたときの処理
+			if (!flg) {
+				flg = true;
 				if (event.getCode().equals(KeyCode.ENTER)) {
 
 					Thread th = new Thread(new Runnable() {
@@ -83,37 +77,45 @@ public class Main extends Application {
 							dramRoll.play();
 
 							int j = 0;
-							while (j < 4) {
+							while (j < 4) {//・・・の表示
 								Platform.runLater(() -> label.setText(label.getText() + "・"));
+
 								try {
 									if (j != 3) {
 										Thread.sleep(1000);// 1秒停止
+
 									} else {
 										String keyword = lc.event();
 										Platform.runLater(() -> label.setText(keyword));
-										if(keyword.equals("１等です！\nおめでとうございます！")){
+										if("１等です！\nおめでとうございます！".equals(keyword)){
 											dramRoll.stop();
 											AudioClip sound = new AudioClip(new File("sound1.mp3").toURI().toString());
 											sound.play();
-											Thread.sleep(6000);// 2.5秒停止
-										}else if(keyword.equals("２等です！\nおめでとうございます！")){
+											Thread.sleep(6000);// 6秒停止
+
+										}else if("２等です！\nおめでとうございます！".equals(keyword)){
 											dramRoll.stop();
 											AudioClip sound = new AudioClip(new File("oruga.mp3").toURI().toString());
 											sound.play();
-											Thread.sleep(9000);// 2.5秒停止
-										}else if(keyword.equals("３等です！\nおめでとうございます！")){
+											Thread.sleep(9000);// 9秒停止
+
+										}else if("３等です！\nおめでとうございます！".equals(keyword)){
 											dramRoll.stop();
 											AudioClip sound = new AudioClip(new File("dragon.mp3").toURI().toString());
 											sound.play();
-											Thread.sleep(3000);// 2.5秒停止
+											Thread.sleep(3000);// 3秒停止
+
 										}else{
-										Thread.sleep(2000);// 2.5秒停止
+											Thread.sleep(2000);// 2秒停止
+
 										}
 										Platform.runLater(() -> label.setText("ここに結果が出るよ♪"));
 										flg=false;
 									}
+
 								} catch (InterruptedException e) {
 									e.printStackTrace();
+									System.out.println("何かがおかしいよ");
 								}
 								j++;
 							}
@@ -124,12 +126,10 @@ public class Main extends Application {
 				}
 			}
 		});
-		// エンターキーが押されたときの処理
-
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		// cssで細かい表示形式設定
 		stage.setScene(scene);
-		// ステージセット
+		// sceneをstageにセットする
 
 	}
 

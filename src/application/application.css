@@ -5,7 +5,7 @@
     -fx-padding: 3 6 6 6;
 }
 
-#anc{
+#root{
 	-fx-background-image: url("comment.png");
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;

@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LotteryControl {
-	//	private final Random rand = new Random();
+class LotteryControl {
 
 	private static final int[][] Hit = {
 			{ 1, 3, 5, 7 },
@@ -18,7 +17,7 @@ public class LotteryControl {
 	//くじ全体数リスト
 	private int count = 0;
 
-	public void setArray() {
+	void setArray() {
 		for (int i = 1; i <= 100; i++) {
 			list.add(i);
 		}
@@ -27,7 +26,7 @@ public class LotteryControl {
 
 	}
 
-	public String event() {//当たり、外れの判定メソッド
+	String event() {//当たり、外れの判定メソッド
 		String result = null;
 		int place = 0;
 		A:for (int[] BBB : Hit) {
@@ -51,7 +50,6 @@ public class LotteryControl {
 					}
 				} else if (CCC != list.get(count)) {
 					result = "残念！はずれです！\nまた挑戦してくださいね！！";
-				} else {
 				}
 			}
 			place++;
