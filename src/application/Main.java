@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -9,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -49,7 +52,6 @@ public class Main extends Application{
 		Font font = new Font("東青梅ゴシック", 40);
 		//ボタン
 		label = new Label("ここに結果が出るよ♪");
-//		label.setPrefSize(509,400);
 		label.setPrefSize(509,400);
 		label.setFont(font);
 		label.setAlignment(Pos.CENTER);
@@ -61,25 +63,15 @@ public class Main extends Application{
 		AnchorPane.setTopAnchor(label, 60.0);
 	     AnchorPane.setLeftAnchor(label, 450.0);
 	     anc.getChildren().addAll(label);
-//
-//		HBox hbox = new HBox();
-//		//HBox:水平方向に配置レイアウト
-//		hbox.setId("hbox");
-//
-//		hbox.setAlignment(Pos.CENTER);
-//		//hboxの配置位置
-//
-//		hbox.setPadding(new Insets(10, 10, 10, 10));
-//		//HBOXと周囲のコントロールとの隙間
-//		hbox.setSpacing(50);
-//		//hboxに配置するコントロールの隙間
-//		hbox.getChildren().add(label);
-//		//hboxにコントロールを設置
+
 		Scene scene = new Scene(anc);
 		//配置方法指定
 
-
 		scene.setOnKeyPressed(event -> {
+			//システムシャットダウン(Escキーで)
+			if(event.getCode().equals(KeyCode.ESCAPE)){
+				System.exit(0);
+			}
 
 			if(event.getCode().equals(KeyCode.ENTER)){
 				Thread th = new Thread(new Runnable() {
@@ -88,6 +80,9 @@ public class Main extends Application{
 					public void run() {
 						Platform.runLater(
 								() -> label.setText("結果は"));
+						//MP3を再生
+						AudioClip dramRoll = new AudioClip(new File("dramroll.mp3").toURI().toString());
+						dramRoll.play();
 
 						int j =0;
 						while(j<4){
@@ -99,7 +94,7 @@ public class Main extends Application{
 								}else{
 									Platform.runLater(
 											() -> label.setText(lc.event()));
-									Thread.sleep(2000);//2.5秒停止
+									Thread.sleep(4000);//2.5秒停止
 									Platform.runLater(
 											() -> label.setText("ここに結果が出るよ♪"));
 								}
